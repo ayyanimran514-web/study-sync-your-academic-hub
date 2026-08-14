@@ -32,7 +32,7 @@ const arithmetic: Solver = (q) => {
   if (/=/.test(q)) return null;
   const match = q.match(/[-+*/^().\d\s×÷]{3,}/);
   if (!match) return null;
-  const result = evaluateExpression(match[0]);
+  const result = evaluateExpression(match[0] ?? "");
   if (result === null) return null;
   return `**${match[0].trim()} = ${round(result)}**\n\nI evaluated it left to right using operator precedence (brackets → powers → × ÷ → + −). Try changing a number and asking again to see how the result moves.`;
 };
@@ -59,8 +59,8 @@ const linearEquation: Solver = (q) => {
     return Number.isFinite(a) && Number.isFinite(b) ? { a, b } : null;
   };
 
-  const left = parseSide(eq[1]);
-  const right = parseSide(eq[2]);
+  const left = parseSide(eq[1] ?? "");
+  const right = parseSide(eq[2] ?? "");
   if (!left || !right) return null;
 
   const a = left.a - right.a;
